@@ -1,7 +1,7 @@
 # usb-tester
 Script for black box testing to discover USB messages on the BUS supported by target device
 
-#### It works and it was tested on raspberry pi 4. As long you can use prereq.sh script on your distro it should be fine. Please not that probably for Intel CPUs you need to either install build utils for ARM or change gcc.
+#### It works and it was tested on raspberry pi 4 and Linux. As long you can use prereq.sh script on your distro it should be fine. Please not that probably for Intel CPUs you need to either install build utils for ARM or change gcc.
 
 #### Main goal of the script is to find USB messages supported by target device, either for fuzzing or for fault injection attacks. Using additionally devices like USB hardware triggers (Beagle 480, PhyWhisperer) together with X-Force RED Raiden And/or EMFI you can very deeply test USB stacks on target devices.  
 
