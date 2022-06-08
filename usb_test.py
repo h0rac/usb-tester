@@ -79,24 +79,22 @@ parser.add_argument('-p', '--idProduct',
                     dest="idProduct",
                     metavar="<idProduct>",
                     help="Product id of USB target device")                    
-parser.add_argument('-b', '--bmRequestType',
+parser.add_argument('-bM', '--bmRequestType',
                     required=False,
                     type=str,
                     nargs='*',
-                    default=list(bmRequestTypes.keys()), 
                     dest="bmRequestType",
                     metavar="<bmRequestType>",
                     action="store",
-                    help=','.join(list(bmRequestTypes.keys())))
+                    help='Manual bmRequestType for USB request, if not provided will be bruteforce'
 parser.add_argument('-bR', '--bRequest',
                     required=False,
                     type=str,
                     nargs='*',
-                    default=list(bRequestBrute.keys()), 
                     dest="bRequest",
                     action="store",
                     metavar="<bRequest>",
-                    help=','.join(list(bRequestBrute.keys())))
+                    help='Manual bRequest for USB request, if not provided will be bruteforce'
 parser.add_argument('-wV', '--wValue',
                     required=False,
                     type=str,
@@ -120,6 +118,10 @@ parser.add_argument('-wL', '--wLength',
 
 args = parser.parse_args()
 print({x:hex(y) for (x,y) in bmRequestTypes.items()})
+if (args.bmRequestType):
+    args.bmRequest=int(args.bmRequestType,16)
+if (args.bRequest):
+    args.bRequest=int(args.bRequest,16)
 if(args.idVendor):
     args.idVendor=int(args.idVendor,16)
 if(args.idProduct):
@@ -161,9 +163,9 @@ try:
             if(args.wValue is not None and args.wValue >= 0 and args.wIndex is not None and args.wIndex >= 0):
                 try:
                     print("[+] bmRequestType={}, description={}, bRequest={}, description={}, wValue={}, wIndex={}, wLength={}".format(hex(vRequestType), kRequestType, hex(vRequest), kRequest, hex(args.wValue), hex(args.wIndex), hex(args.wLength)))
-                    ret = dev.ctrl_transfer(bmRequestType=vRequestType, bRequest=vRequest, wValue=args.wValue, wIndex=args.wIndex, data_or_wLength=args.wLength)
+                    ret = dev.ctrl_transfer(bmRequestType=args.bmRequestType, bRequest=args.bRequest, wValue=args.wValue, wIndex=args.wIndex, data_or_wLength=args.wLength)
                     if(len(ret) > 0):
-                        responses.append({"bmRequestType":hex(vRequestType), "bRequest":hex(vRequest), "wValue":hex(args.wValue), "wIndex":hex(args.wIndex), "wLength":hex(args.wLength), "resp":list(ret) })
+                        responses.append({"bmRequestType":hex(args.bmRequestType), "bRequest":hex(args.bRequest), "wValue":hex(args.wValue), "wIndex":hex(args.wIndex), "wLength":hex(args.wLength), "resp":list(ret) })
                         print(ret)
                 except:
                     pass
@@ -171,9 +173,9 @@ try:
                 for wIndex in range(256):
                     try:
                         print("[+] bmRequestType={}, description={}, bRequest={}, description={}, wValue={}, wIndex={}, wLength={}".format(hex(vRequestType), kRequestType, hex(vRequest), kRequest, hex(args.wValue), hex(wIndex), hex(args.wLength)))
-                        ret = dev.ctrl_transfer(bmRequestType=vRequestType, bRequest=vRequest, wValue=args.wValue, wIndex=wIndex, data_or_wLength=args.wLength)
+                        ret = dev.ctrl_transfer(bmRequestType=args.bmRequestType, bRequest=args.bRequest, wValue=args.wValue, wIndex=wIndex, data_or_wLength=args.wLength)
                         if(len(ret) > 0):
-                            responses.append({"bmRequestType":hex(vRequestType), "bRequest":hex(vRequest), "wValue":hex(args.wValue), "wIndex":hex(wIndex), "wLength":hex(args.wLength), "resp":list(ret) })
+                            responses.append({"bmRequestType":hex(args.bmRequestType), "bRequest":hex(args.bRequest), "wValue":hex(args.wValue), "wIndex":hex(wIndex), "wLength":hex(args.wLength), "resp":list(ret) })
                             print(ret)
                     except:
                         pass
@@ -181,9 +183,9 @@ try:
                 for wValue in range(65535):
                     try:
                         print("[+] bmRequestType={}, description={}, bRequest={}, description={}, wValue={}, wIndex={}, wLength={}".format(hex(vRequestType), kRequestType, hex(vRequest), kRequest, hex(wValue), hex(args.wIndex), hex(args.wLength)))
-                        ret = dev.ctrl_transfer(bmRequestType=vRequestType, bRequest=vRequest, wValue=wValue, wIndex=args.wIndex, data_or_wLength=args.wLength)
+                        ret = dev.ctrl_transfer(bmRequestType=args.bmRequestType, bRequest=args.bRequest, wValue=wValue, wIndex=args.wIndex, data_or_wLength=args.wLength)
                         if(len(ret) > 0):
-                            responses.append({"bmRequestType":hex(vRequestType), "bRequest":hex(vRequest), "wValue":hex(wValue), "wIndex":hex(args.wIndex), "wLength":hex(args.wLength), "resp":list(ret) })
+                            responses.append({"bmRequestType":hex(args.bmRequestType), "bRequest":hex(args.bRequest), "wValue":hex(wValue), "wIndex":hex(args.wIndex), "wLength":hex(args.wLength), "resp":list(ret) })
                             print(ret)
                     except:
                         pass
@@ -192,9 +194,9 @@ try:
                     for wIndex in range(256):
                         try:
                             print("[+] bmRequestType={}, description={}, bRequest={}, description={}, wValue={}, wIndex={}, wLength={}".format(hex(vRequestType), kRequestType, hex(vRequest), kRequest, hex(wValue), hex(wIndex), hex(args.wLength)))
-                            ret = dev.ctrl_transfer(bmRequestType=vRequestType, bRequest=vRequest, wValue=wValue, wIndex=wIndex, data_or_wLength=args.wLength)
+                            ret = dev.ctrl_transfer(bmRequestType=args.bmRequestType, bRequest=args.bRequest, wValue=wValue, wIndex=wIndex, data_or_wLength=args.wLength)
                             if(len(ret) > 0):
-                                responses.append({"bmRequestType":hex(vRequestType), "bRequest":hex(vRequest), "wValue":hex(wValue), "wIndex":hex(wIndex), "wLength":hex(args.wLength), "resp":list(ret) })
+                                responses.append({"bmRequestType":hex(args.bmRequestType), "bRequest":hex(args.bRequest), "wValue":hex(wValue), "wIndex":hex(wIndex), "wLength":hex(args.wLength), "resp":list(ret) })
                                 print(ret)
                         except:
                             pass
