@@ -150,6 +150,7 @@ except TypeError as e:
 responses = []
 
 
+print( bRequestBrute.items())
 bRequestSelected = {k:v for k,v in bRequestBrute.items() if v in  int(args.bRequest,16)}
 bmRequestTypesSelected = {k:v for k,v in bmRequestTypes.items() if v in int(args.bmRequestType)}
 
