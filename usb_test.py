@@ -148,83 +148,63 @@ except TypeError as e:
 
 responses = []
 
-print("brute bR", bRequestBrute)
-print("brute bM", bmRequestTypes)
-
 bRequestSelected = {k:v for k,v in bRequestBrute.items() if v ==  args.bRequest}
 bmRequestTypesSelected = {k:v for k,v in bmRequestTypes.items() if v == args.bmRequestType}
 
-# for k,v in bmRequestTypes.items():
-#     print("{}, {}".format(k, hex(v)))
-
-print("bRequestSelected", bRequestSelected)
-print("bmRequestTypesSelected", bmRequestTypesSelected)
-
 try:
-
-    if(args.wValue is not None and args.wValue >= 0 and args.wIndex is not None and args.wIndex >= 0 and args.wLength is not None and args.wLength >= 0 and args.bmRequestType is not None and args.bRequest is not None):
-        try:
-            print("[+] bmRequestType={}, description={}, bRequest={}, description={}, wValue={}, wIndex={}, wLength={}".format(hex(vRequestType), kRequestType, hex(vRequest), kRequest, hex(args.wValue), hex(args.wIndex), hex(args.wLength)))
-            ret = dev.ctrl_transfer(bmRequestType=args.bmRequestType, bRequest=args.bRequest, wValue=args.wValue, wIndex=args.wIndex, data_or_wLength=args.wLength)
-            if(len(ret) > 0):
-                responses.append({"bmRequestType":hex(args.bmRequestType), "bRequest":hex(args.bRequest), "wValue":hex(args.wValue), "wIndex":hex(args.wIndex), "wLength":hex(args.wLength), "resp":list(ret) })
-                print(ret)
-        except:
-            pass
-    else:
-        for kRequestType,vRequestType in bmRequestTypes.items():
-            for kRequest, vRequest in bRequestBrute.items():
-                if(args.wValue is not None and args.wValue >= 0 and args.wIndex is not None and args.wIndex >= 0):
+    for kRequestType,vRequestType in bmRequestTypes.items():
+        for kRequest, vRequest in bRequestBrute.items():
+            if(args.wValue is not None and args.wValue >= 0 and args.wIndex is not None and args.wIndex >= 0):
+                try:
+                    print("[+] bmRequestType={}, description={}, bRequest={}, description={}, wValue={}, wIndex={}, wLength={}".format(hex(vRequestType), kRequestType, hex(vRequest), kRequest, hex(args.wValue), hex(args.wIndex), hex(args.wLength)))
+                    ret = dev.ctrl_transfer(bmRequestType=args.bmRequestType, bRequest=args.bRequest, wValue=args.wValue, wIndex=args.wIndex, data_or_wLength=args.wLength)
+                    if(len(ret) > 0):
+                        responses.append({"bmRequestType":hex(args.bmRequestType), "bRequest":hex(args.bRequest), "wValue":hex(args.wValue), "wIndex":hex(args.wIndex), "wLength":hex(args.wLength), "resp":list(ret) })
+                        print(ret)
+                except:
+                    pass
+            elif(args.wValue is not None and args.wValue >= 0 and args.wIndex is None):
+                for wIndex in range(256):
                     try:
-                        print("[+] bmRequestType={}, description={}, bRequest={}, description={}, wValue={}, wIndex={}, wLength={}".format(hex(vRequestType), kRequestType, hex(vRequest), kRequest, hex(args.wValue), hex(args.wIndex), hex(args.wLength)))
-                        ret = dev.ctrl_transfer(bmRequestType=args.bmRequestType, bRequest=args.bRequest, wValue=args.wValue, wIndex=args.wIndex, data_or_wLength=args.wLength)
+                        print("[+] bmRequestType={}, description={}, bRequest={}, description={}, wValue={}, wIndex={}, wLength={}".format(hex(vRequestType), kRequestType, hex(vRequest), kRequest, hex(args.wValue), hex(wIndex), hex(args.wLength)))
+                        ret = dev.ctrl_transfer(bmRequestType=args.bmRequestType, bRequest=args.bRequest, wValue=args.wValue, wIndex=wIndex, data_or_wLength=args.wLength)
                         if(len(ret) > 0):
-                            responses.append({"bmRequestType":hex(args.bmRequestType), "bRequest":hex(args.bRequest), "wValue":hex(args.wValue), "wIndex":hex(args.wIndex), "wLength":hex(args.wLength), "resp":list(ret) })
+                            responses.append({"bmRequestType":hex(args.bmRequestType), "bRequest":hex(args.bRequest), "wValue":hex(args.wValue), "wIndex":hex(wIndex), "wLength":hex(args.wLength), "resp":list(ret) })
                             print(ret)
                     except:
                         pass
-                elif(args.wValue is not None and args.wValue >= 0 and args.wIndex is None):
+            elif(args.wIndex is not None and args.wIndex >=0 and args.wValue is None):
+                for wValue in range(65535):
+                    try:
+                        print("[+] bmRequestType={}, description={}, bRequest={}, description={}, wValue={}, wIndex={}, wLength={}".format(hex(vRequestType), kRequestType, hex(vRequest), kRequest, hex(wValue), hex(args.wIndex), hex(args.wLength)))
+                        ret = dev.ctrl_transfer(bmRequestType=args.bmRequestType, bRequest=args.bRequest, wValue=wValue, wIndex=args.wIndex, data_or_wLength=args.wLength)
+                        if(len(ret) > 0):
+                            responses.append({"bmRequestType":hex(args.bmRequestType), "bRequest":hex(args.bRequest), "wValue":hex(wValue), "wIndex":hex(args.wIndex), "wLength":hex(args.wLength), "resp":list(ret) })
+                            print(ret)
+                    except:
+                        pass
+            else:
+                for wValue in range(65535):
                     for wIndex in range(256):
                         try:
-                            print("[+] bmRequestType={}, description={}, bRequest={}, description={}, wValue={}, wIndex={}, wLength={}".format(hex(vRequestType), kRequestType, hex(vRequest), kRequest, hex(args.wValue), hex(wIndex), hex(args.wLength)))
-                            ret = dev.ctrl_transfer(bmRequestType=args.bmRequestType, bRequest=args.bRequest, wValue=args.wValue, wIndex=wIndex, data_or_wLength=args.wLength)
+                            print("[+] bmRequestType={}, description={}, bRequest={}, description={}, wValue={}, wIndex={}, wLength={}".format(hex(vRequestType), kRequestType, hex(vRequest), kRequest, hex(wValue), hex(wIndex), hex(args.wLength)))
+                            ret = dev.ctrl_transfer(bmRequestType=args.bmRequestType, bRequest=args.bRequest, wValue=wValue, wIndex=wIndex, data_or_wLength=args.wLength)
                             if(len(ret) > 0):
-                                responses.append({"bmRequestType":hex(args.bmRequestType), "bRequest":hex(args.bRequest), "wValue":hex(args.wValue), "wIndex":hex(wIndex), "wLength":hex(args.wLength), "resp":list(ret) })
+                                responses.append({"bmRequestType":hex(args.bmRequestType), "bRequest":hex(args.bRequest), "wValue":hex(wValue), "wIndex":hex(wIndex), "wLength":hex(args.wLength), "resp":list(ret) })
                                 print(ret)
                         except:
                             pass
-                elif(args.wIndex is not None and args.wIndex >=0 and args.wValue is None):
-                    for wValue in range(65535):
-                        try:
-                            print("[+] bmRequestType={}, description={}, bRequest={}, description={}, wValue={}, wIndex={}, wLength={}".format(hex(vRequestType), kRequestType, hex(vRequest), kRequest, hex(wValue), hex(args.wIndex), hex(args.wLength)))
-                            ret = dev.ctrl_transfer(bmRequestType=args.bmRequestType, bRequest=args.bRequest, wValue=wValue, wIndex=args.wIndex, data_or_wLength=args.wLength)
-                            if(len(ret) > 0):
-                                responses.append({"bmRequestType":hex(args.bmRequestType), "bRequest":hex(args.bRequest), "wValue":hex(wValue), "wIndex":hex(args.wIndex), "wLength":hex(args.wLength), "resp":list(ret) })
-                                print(ret)
-                        except:
-                            pass
-                else:
-                    for wValue in range(65535):
-                        for wIndex in range(256):
-                            try:
-                                print("[+] bmRequestType={}, description={}, bRequest={}, description={}, wValue={}, wIndex={}, wLength={}".format(hex(vRequestType), kRequestType, hex(vRequest), kRequest, hex(wValue), hex(wIndex), hex(args.wLength)))
-                                ret = dev.ctrl_transfer(bmRequestType=args.bmRequestType, bRequest=args.bRequest, wValue=wValue, wIndex=wIndex, data_or_wLength=args.wLength)
-                                if(len(ret) > 0):
-                                    responses.append({"bmRequestType":hex(args.bmRequestType), "bRequest":hex(args.bRequest), "wValue":hex(wValue), "wIndex":hex(wIndex), "wLength":hex(args.wLength), "resp":list(ret) })
-                                    print(ret)
-                            except:
-                                pass
-        if(len(responses) > 0):
-            print("[+] Results found !!! save to responses files")
-            for i in range(0, len(responses)):
-                f = open("responses%d.txt" % i, "w")
-                f.write("{}\n".format(responses[i]))
-                f.close()
-                f = open("responses%d.bin" % i, "w")
-                f.write("".join([chr(elem) for elem in responses[i]["resp"]]))
-                f.close()
-        else:
-            print("[-] Results not found :(")
+    if(len(responses) > 0):
+        print("[+] Results found !!! save to responses files")
+        for i in range(0, len(responses)):
+            f = open("responses%d.txt" % i, "w")
+            f.write("{}\n".format(responses[i]))
+            f.close()
+            f = open("responses%d.bin" % i, "w")
+            f.write("".join([chr(elem) for elem in responses[i]["resp"]]))
+            f.close()
+    else:
+        print("[-] Results not found :(")
 except KeyboardInterrupt:
     print("Exit program")
     sys.exit(0)
