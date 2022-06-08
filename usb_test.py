@@ -86,7 +86,7 @@ parser.add_argument('-bM', '--bmRequestType',
                     dest="bmRequestType",
                     metavar="<bmRequestType>",
                     action="store",
-                    help='Manual bmRequestType for USB request, if not provided will be bruteforce'
+                    help='Manual bmRequestType for USB request, if not provided will be bruteforce')
 parser.add_argument('-bR', '--bRequest',
                     required=False,
                     type=str,
@@ -94,7 +94,7 @@ parser.add_argument('-bR', '--bRequest',
                     dest="bRequest",
                     action="store",
                     metavar="<bRequest>",
-                    help='Manual bRequest for USB request, if not provided will be bruteforce'
+                    help='Manual bRequest for USB request, if not provided will be bruteforce')
 parser.add_argument('-wV', '--wValue',
                     required=False,
                     type=str,
