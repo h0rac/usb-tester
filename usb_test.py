@@ -116,9 +116,8 @@ parser.add_argument('-wL', '--wLength',
 
 args = parser.parse_args()
 print({x:hex(y) for (x,y) in bmRequestTypes.items()})
-print("TEST", args)
 if (args.bmRequestType):
-    args.bmRequest=int(args.bmRequestType,16)
+    args.bmRequestType=int(args.bmRequestType,16)
 if (args.bRequest):
     args.bRequest=int(args.bRequest,16)
 if(args.idVendor):
@@ -149,9 +148,9 @@ except TypeError as e:
 
 responses = []
 
-
+print("TEST {} {}".format(args.bmRequestType,   args.bRequest))
 print( bRequestBrute.items())
-bRequestSelected = {k:v for k,v in bRequestBrute.items() if v in  int(args.bRequest,16)}
+bRequestSelected = {k:v for k,v in bRequestBrute.items() if v in  args.bRequest}
 bmRequestTypesSelected = {k:v for k,v in bmRequestTypes.items() if v in int(args.bmRequestType)}
 
 # for k,v in bmRequestTypes.items():
