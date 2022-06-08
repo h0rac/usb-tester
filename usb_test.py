@@ -118,6 +118,7 @@ parser.add_argument('-wL', '--wLength',
 
 args = parser.parse_args()
 print({x:hex(y) for (x,y) in bmRequestTypes.items()})
+print("TEST", args)
 if (args.bmRequestType):
     args.bmRequest=int(args.bmRequestType,16)
 if (args.bRequest):
