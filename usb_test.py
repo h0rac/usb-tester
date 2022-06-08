@@ -150,8 +150,8 @@ except TypeError as e:
 responses = []
 
 
-bRequestSelected = {k:v for k,v in bRequestBrute.items() if k in  args.bRequest}
-bmRequestTypesSelected = {k:v for k,v in bmRequestTypes.items() if k in args.bmRequestType}
+bRequestSelected = {k:v for k,v in bRequestBrute.items() if v in  args.bRequest}
+bmRequestTypesSelected = {k:v for k,v in bmRequestTypes.items() if v in args.bmRequestType}
 
 # for k,v in bmRequestTypes.items():
 #     print("{}, {}".format(k, hex(v)))
