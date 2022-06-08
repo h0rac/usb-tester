@@ -154,6 +154,9 @@ bmRequestTypesSelected = {k:v for k,v in bmRequestTypes.items() if v == args.bmR
 # for k,v in bmRequestTypes.items():
 #     print("{}, {}".format(k, hex(v)))
 
+print("bRequestSelected", bRequestSelected)
+print("bmRequestTypesSelected", bmRequestTypesSelected)
+
 try:
     for kRequestType,vRequestType in bmRequestTypesSelected.items():
         for kRequest, vRequest in bRequestSelected.items():
