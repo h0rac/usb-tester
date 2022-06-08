@@ -148,8 +148,6 @@ except TypeError as e:
 
 responses = []
 
-print("TEST {} {}".format(args.bmRequestType,   args.bRequest))
-print( bRequestBrute.items())
 bRequestSelected = {k:v for k,v in bRequestBrute.items() if v ==  args.bRequest}
 bmRequestTypesSelected = {k:v for k,v in bmRequestTypes.items() if v == args.bmRequestType}
 
