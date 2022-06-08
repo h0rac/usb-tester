@@ -152,7 +152,7 @@ bRequestSelected = {k:v for k,v in bRequestBrute.items() if v ==  args.bRequest}
 bmRequestTypesSelected = {k:v for k,v in bmRequestTypes.items() if v == args.bmRequestType}
 
 print("LEN", bmRequestTypesSelected.keys())
-if len(bmRequestTypesSelected.keys() == 0) or len(bRequestSelected.keys() == 0):
+if len(bmRequestTypesSelected.keys()) == 0 or len(bRequestSelected.keys()) == 0:
     bRequestSelected = bRequestBrute
     bmRequestTypesSelected = bmRequestTypes
 
