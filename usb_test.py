@@ -161,8 +161,8 @@ print("bRequestSelected", bRequestSelected)
 print("bmRequestTypesSelected", bmRequestTypesSelected)
 
 try:
-    for kRequestType,vRequestType in bmRequestTypesSelected.items():
-        for kRequest, vRequest in bRequestSelected.items():
+    for kRequestType,vRequestType in bmRequestTypes.items():
+        for kRequest, vRequest in bRequestBrute.items():
             if(args.wValue is not None and args.wValue >= 0 and args.wIndex is not None and args.wIndex >= 0):
                 try:
                     print("[+] bmRequestType={}, description={}, bRequest={}, description={}, wValue={}, wIndex={}, wLength={}".format(hex(vRequestType), kRequestType, hex(vRequest), kRequest, hex(args.wValue), hex(args.wIndex), hex(args.wLength)))
