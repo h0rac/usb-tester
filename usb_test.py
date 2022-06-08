@@ -151,9 +151,13 @@ responses = []
 bRequestSelected = {k:v for k,v in bRequestBrute.items() if v ==  args.bRequest}
 bmRequestTypesSelected = {k:v for k,v in bmRequestTypes.items() if v == args.bmRequestType}
 
+print(bRequestSelected)
+print("-----")
+print(bmRequestTypesSelected)
+
 try:
-    for kRequestType,vRequestType in bmRequestTypes.items():
-        for kRequest, vRequest in bRequestBrute.items():
+    for kRequestType,vRequestType in bmRequestTypesSelected.items():
+        for kRequest, vRequest in bRequestSelected.items():
             if(args.wValue is not None and args.wValue >= 0 and args.wIndex is not None and args.wIndex >= 0):
                 try:
                     print("[+] bmRequestType={}, description={}, bRequest={}, description={}, wValue={}, wIndex={}, wLength={}".format(hex(vRequestType), kRequestType, hex(vRequest), kRequest, hex(args.wValue), hex(args.wIndex), hex(args.wLength)))
