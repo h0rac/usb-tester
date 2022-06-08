@@ -162,7 +162,7 @@ print("bmRequestTypesSelected", bmRequestTypesSelected)
 
 try:
 
-    if(args.wValue is not None and args.wValue >= 0 and args.wIndex is not None and args.wIndex >= 0 and args.wLength is not None and args.wLength >= 0 and bmRequestType is not None and bRequest is not None):
+    if(args.wValue is not None and args.wValue >= 0 and args.wIndex is not None and args.wIndex >= 0 and args.wLength is not None and args.wLength >= 0 and args.bmRequestType is not None and args.bRequest is not None):
         try:
             print("[+] bmRequestType={}, description={}, bRequest={}, description={}, wValue={}, wIndex={}, wLength={}".format(hex(vRequestType), kRequestType, hex(vRequest), kRequest, hex(args.wValue), hex(args.wIndex), hex(args.wLength)))
             ret = dev.ctrl_transfer(bmRequestType=args.bmRequestType, bRequest=args.bRequest, wValue=args.wValue, wIndex=args.wIndex, data_or_wLength=args.wLength)
