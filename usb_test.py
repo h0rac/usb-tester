@@ -170,7 +170,7 @@ try:
                 responses.append({"bmRequestType":hex(args.bmRequestType), "bRequest":hex(args.bRequest), "wValue":hex(args.wValue), "wIndex":hex(args.wIndex), "wLength":hex(args.wLength), "resp":list(ret) })
                 print(ret)
         except:
-        pass
+            pass
     else:
         for kRequestType,vRequestType in bmRequestTypes.items():
             for kRequest, vRequest in bRequestBrute.items():
