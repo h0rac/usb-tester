@@ -150,8 +150,8 @@ responses = []
 
 print("TEST {} {}".format(args.bmRequestType,   args.bRequest))
 print( bRequestBrute.items())
-bRequestSelected = {k:v for k,v in bRequestBrute.items() if v in  args.bRequest}
-bmRequestTypesSelected = {k:v for k,v in bmRequestTypes.items() if v in int(args.bmRequestType)}
+bRequestSelected = {k:v for k,v in bRequestBrute.items() if v ==  args.bRequest}
+bmRequestTypesSelected = {k:v for k,v in bmRequestTypes.items() if v == args.bmRequestType}
 
 # for k,v in bmRequestTypes.items():
 #     print("{}, {}".format(k, hex(v)))
